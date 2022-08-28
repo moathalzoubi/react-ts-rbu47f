@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
@@ -15,7 +14,6 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Widgets from '@mui/icons-material/Widgets';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
-import RecipeReviewCard from './Card';
 const drawerWidth = 300;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
@@ -63,12 +61,16 @@ const AppBar = styled(MuiAppBar, {
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
-  justifyContent: 'flex-end',
 }));
 
+const Box = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  padding: 0,
+  margin: 0,
+}));
 export default function PersistentDrawerLeft() {
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
@@ -159,7 +161,7 @@ export default function PersistentDrawerLeft() {
               </IconButton>
             </DrawerHeader>
             <Divider />
-            <Box></Box>
+            <Box id="thumbnails"></Box>
           </Drawer>
 
           <Drawer
@@ -195,10 +197,12 @@ export default function PersistentDrawerLeft() {
             <Box></Box>
           </Drawer>
         </Grid>
-
-        <Main open={open}>
-          <DrawerHeader />
-        </Main>
+        <Grid xs={12}>
+          <Main open={open}>
+            <DrawerHeader />
+            <Box id="viewer"></Box>
+          </Main>
+        </Grid>
       </Box>
     </Grid>
   );
