@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
+import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -13,14 +13,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Mode from '@mui/icons-material/Mode';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-
-const drawerWidth = 240;
+import Widgets from '@mui/icons-material/Widgets';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
+import RecipeReviewCard from './Card';
+const drawerWidth = 300;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
   open?: boolean;
@@ -74,14 +70,15 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function PersistentDrawerLeft() {
-  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
+    setOpen2(false);
   };
   const handleDrawerOpen2 = () => {
     setOpen2(true);
+    setOpen(false);
   };
   const handleDrawerClose = () => {
     setOpen(false);
@@ -91,77 +88,118 @@ export default function PersistentDrawerLeft() {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar position="fixed" open={open}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div"></Typography>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen2}
-            edge="end"
-            sx={{ mr: 2, ...(open2 && { display: 'none' }) }}
-          >
-            <Mode />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: drawerWidth,
-            boxSizing: 'border-box',
-          },
-        }}
-        variant="persistent"
-        anchor="left"
-        open={open}
-      >
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <Box></Box>
-      </Drawer>
+    <Grid container spacing={2}>
+      <Box>
+        <CssBaseline />
+        <Grid container spacing={2}>
+          <AppBar position="fixed" open={open}>
+            <Grid>
+              <Toolbar>
+                <Grid container spacing={2} xs={1}>
+                  <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={handleDrawerOpen}
+                    edge="start"
+                    sx={{ mr: 0, ...(open && { display: 'none' }) }}
+                  >
+                    <MenuIcon />
+                  </IconButton>
+                </Grid>
+                <Grid xs={10}>
+                  <Typography variant="h6" noWrap component="div"></Typography>
+                </Grid>
+                <Grid
+                  container
+                  direction="row"
+                  justifyContent="flex-end"
+                  alignItems="baseline"
+                >
+                  <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={handleDrawerOpen2}
+                    edge="end"
+                    sx={{ ml: 0, ...(open2 && { display: 'none' }) }}
+                  >
+                    <Mode />
+                  </IconButton>
+                </Grid>
+              </Toolbar>
+            </Grid>
+          </AppBar>
 
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: drawerWidth,
-            boxSizing: 'border-box',
-          },
-        }}
-        variant="persistent"
-        anchor="right"
-        open={open2}
-      >
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose2}>
-            <ChevronRightIcon />
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <Box></Box>
-      </Drawer>
-      <Main open={open}>
-        <DrawerHeader />
-      </Main>
-    </Box>
+          <Drawer
+            sx={{
+              width: drawerWidth,
+              flexShrink: 0,
+              '& .MuiDrawer-paper': {
+                width: drawerWidth,
+                boxSizing: 'border-box',
+              },
+            }}
+            variant="persistent"
+            anchor="left"
+            open={open}
+          >
+            <DrawerHeader>
+              <Grid
+                container
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <Widgets m={2} />
+                <Typography variant="h5" component="h5">
+                  Thumbnails
+                </Typography>
+              </Grid>
+              <IconButton onClick={handleDrawerClose}>
+                <ChevronLeftIcon />
+              </IconButton>
+            </DrawerHeader>
+            <Divider />
+            <Box></Box>
+          </Drawer>
+
+          <Drawer
+            sx={{
+              width: drawerWidth,
+              flexShrink: 0,
+              '& .MuiDrawer-paper': {
+                width: drawerWidth,
+                boxSizing: 'border-box',
+              },
+            }}
+            variant="persistent"
+            anchor="right"
+            open={open2}
+          >
+            <DrawerHeader>
+              <Grid
+                container
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <BorderColorIcon m={2} />
+                <Typography variant="h5" component="h5">
+                  Actions
+                </Typography>
+              </Grid>
+              <IconButton onClick={handleDrawerClose2}>
+                <ChevronRightIcon />
+              </IconButton>
+            </DrawerHeader>
+            <Divider />
+            <Box></Box>
+          </Drawer>
+        </Grid>
+
+        <Main open={open}>
+          <DrawerHeader />
+        </Main>
+      </Box>
+    </Grid>
   );
 }
