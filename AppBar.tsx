@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import { createTheme, styled } from '@mui/material/styles';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
@@ -14,7 +14,11 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Widgets from '@mui/icons-material/Widgets';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
-const drawerWidth = 300;
+const drawerWidthR = 200;
+const drawerWidthL = 280;
+const theme = createTheme({
+  spacing: [0, 4, 8, 16, 32, 64],
+});
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
   open?: boolean;
@@ -26,13 +30,12 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  marginLeft: `-${drawerWidth}px`,
+  marginLeft: `-${drawerWidthL}px`,
   ...(open && {
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    marginLeft: 0,
   }),
 }));
 
@@ -49,8 +52,7 @@ const AppBar = styled(MuiAppBar, {
     duration: theme.transitions.duration.leavingScreen,
   }),
   ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: `${drawerWidth}px`,
+    width: `calc(100% - ${drawerWidthL}px)`,
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
@@ -62,7 +64,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
 }));
 
 const Box = styled('div')(({ theme }) => ({
@@ -94,8 +95,8 @@ export default function PersistentDrawerLeft() {
       <Box>
         <CssBaseline />
         <Grid container spacing={2}>
-          <AppBar position="fixed" open={open}>
-            <Grid>
+          <Grid>
+            <AppBar position="fixed" open={open}>
               <Toolbar>
                 <Grid container spacing={2} xs={1}>
                   <IconButton
@@ -128,15 +129,15 @@ export default function PersistentDrawerLeft() {
                   </IconButton>
                 </Grid>
               </Toolbar>
-            </Grid>
-          </AppBar>
+            </AppBar>
+          </Grid>
 
           <Drawer
             sx={{
-              width: drawerWidth,
+              width: drawerWidthL,
               flexShrink: 0,
               '& .MuiDrawer-paper': {
-                width: drawerWidth,
+                width: drawerWidthL,
                 boxSizing: 'border-box',
               },
             }}
@@ -166,10 +167,10 @@ export default function PersistentDrawerLeft() {
 
           <Drawer
             sx={{
-              width: drawerWidth,
+              width: drawerWidthR,
               flexShrink: 0,
               '& .MuiDrawer-paper': {
-                width: drawerWidth,
+                width: drawerWidthR,
                 boxSizing: 'border-box',
               },
             }}
