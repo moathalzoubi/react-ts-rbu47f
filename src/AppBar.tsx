@@ -14,6 +14,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Widgets from '@mui/icons-material/Widgets';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
+import { Viewer } from './Viewer';
 const drawerWidthR = 200;
 const drawerWidthL = 280;
 const theme = createTheme({
@@ -201,7 +202,7 @@ export default function PersistentDrawerLeft() {
         <Grid xs={12}>
           <Main open={open}>
             <DrawerHeader />
-            <Box id="viewer"></Box>
+            <Viewer />
           </Main>
         </Grid>
       </Box>
