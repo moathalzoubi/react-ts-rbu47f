@@ -18,7 +18,7 @@ module.exports = {
     clean: true,
   },
   devServer: {
-    contentBase: './dist',
+    contentBase: './public',
     open: true,
   },
 };
