@@ -1,12 +1,15 @@
 {
   "compilerOptions": {
-    "module": "ESNext"
-  },
-  "ts-node": {
-    "compilerOptions": {
-      "module": "commonjs",
-      "target": "es5",
-      "esModuleInterop": true
-    }
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "module": "commonjs",
+    "target": "es6",
+    "lib": ["es2015", "es2017", "dom"],
+    "removeComments": true,
+    "jsx": "react",
+    "allowJs": true,
+    "baseUrl": "./",
+    "paths": { "/*": ["src/*"] }
   }
 }

@@ -1,24 +1,37 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const path = require('path');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+  entry: './index.tsx',
+
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js'],
+  },
+
+  module: {
+    rules: [
+      {
+        test: /\.html$/,
+        use: { loader: 'html-loader' },
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.tsx?$/,
+        loader: 'awesome-typescript-loader',
+      },
+    ],
+  },
+
   plugins: [
-    new HtmlWebpackPlugin({
-      hash: true,
-      title: 'Webpack Example App',
-      header: 'Webpack Example Title',
-      metaDesc: 'Webpack Example Description',
+    new HtmlWebPackPlugin({
       template: './src/index.html',
-      filename: 'index.html',
-      inject: 'body',
+      filename: './index.html',
     }),
   ],
-  mode: 'development',
-  output: {
-    clean: true,
-  },
-  devServer: {
-    contentBase: './public',
-    open: true,
-  },
+
+  performance: { hints: false },
+  watch: true,
+  devtool: 'source-map',
 };
